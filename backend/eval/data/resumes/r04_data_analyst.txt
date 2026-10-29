@@ -1,0 +1,19 @@
+Meera Iyer
+meera.iyer@example.com | +91 98888 22222
+
+SUMMARY
+Data analyst with 5 years of experience turning education and operations data into decisions.
+
+EXPERIENCE
+Data Analyst, Sunrise School Network — 2022 to present
+Wrote SQL to clean attendance and exam data from 40 campuses. Built Power BI dashboards tracking student
+outcome KPIs and presented monthly to principals. Automated Excel reports with Python and pandas.
+
+Reporting Analyst, RetailCo — 2020 to 2022
+Built Excel models and SQL reports on sales performance.
+
+SKILLS
+SQL, Power BI, Excel, Python, pandas, statistics, data visualisation
+
+EDUCATION
+MSc Statistics, 2020

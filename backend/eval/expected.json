@@ -1,0 +1,46 @@
+{
+  "backend_engineer": {
+    "title": "Backend Engineer — Learning Platform",
+    "requirements": {
+      "required_skills": ["Python", "FastAPI", "PostgreSQL", "Docker", "CI/CD"],
+      "nice_to_have_skills": ["Redis", "AWS", "EdTech"],
+      "min_years_experience": 3,
+      "education": "Computer science degree or equivalent experience"
+    },
+    "tiers": [
+      ["r01_backend_senior.txt"],
+      ["r10_devops.txt", "r02_backend_junior.txt"],
+      ["r05_data_scientist.txt", "r03_frontend_dev.txt", "r04_data_analyst.txt"],
+      ["r06_teacher_primary.txt", "r07_teacher_secondary_math.txt", "r08_chef.txt", "r09_nurse.txt"]
+    ]
+  },
+  "data_analyst": {
+    "title": "Data Analyst — Student Outcomes",
+    "requirements": {
+      "required_skills": ["SQL", "Excel", "Power BI"],
+      "nice_to_have_skills": ["Python", "Statistics"],
+      "min_years_experience": 2
+    },
+    "tiers": [
+      ["r04_data_analyst.txt"],
+      ["r05_data_scientist.txt"],
+      ["r02_backend_junior.txt", "r01_backend_senior.txt", "r10_devops.txt"],
+      ["r03_frontend_dev.txt", "r06_teacher_primary.txt", "r07_teacher_secondary_math.txt", "r08_chef.txt", "r09_nurse.txt"]
+    ]
+  },
+  "primary_teacher": {
+    "title": "Primary School Teacher (Grades 3–5)",
+    "requirements": {
+      "required_skills": ["Lesson planning", "Classroom management", "Student assessment"],
+      "nice_to_have_skills": ["SEN support", "Phonics"],
+      "min_years_experience": 2,
+      "education": "B.Ed or equivalent"
+    },
+    "tiers": [
+      ["r06_teacher_primary.txt"],
+      ["r07_teacher_secondary_math.txt"],
+      ["r01_backend_senior.txt", "r02_backend_junior.txt", "r03_frontend_dev.txt", "r04_data_analyst.txt",
+       "r05_data_scientist.txt", "r08_chef.txt", "r09_nurse.txt", "r10_devops.txt"]
+    ]
+  }
+}

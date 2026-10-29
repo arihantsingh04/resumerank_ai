@@ -1,0 +1,16 @@
+Sofia Marquez
+sofia.marquez@example.com
+
+SUMMARY
+Frontend developer with 4 years of experience building accessible web interfaces.
+
+EXPERIENCE
+Frontend Developer, Brightside Media — 2021 to present
+Built React and TypeScript single-page apps, a component library in Storybook and end-to-end tests
+in Playwright. Improved Lighthouse accessibility scores from 70 to 98.
+
+SKILLS
+React, TypeScript, JavaScript, CSS, Tailwind, Storybook, Playwright, Figma
+
+EDUCATION
+BA Digital Design, 2020

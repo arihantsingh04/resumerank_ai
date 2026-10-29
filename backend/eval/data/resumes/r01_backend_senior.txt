@@ -1,0 +1,20 @@
+Priya Raman
+priya.raman@example.com | +91 90000 11111 | https://github.com/example-priya
+
+SUMMARY
+Senior backend engineer with 7 years of experience building Python services for education technology.
+
+EXPERIENCE
+Senior Backend Engineer, LearnLoop (EdTech) — 2021 to present
+Designed REST APIs in FastAPI serving 1.2M students. Modelled enrolment data in PostgreSQL and cut slow
+queries by 70% with indexing. Containerised all services with Docker and built CI/CD pipelines in GitHub
+Actions. Mentored four engineers and led code reviews.
+
+Backend Developer, ShopNest — 2017 to 2021
+Built Django and Flask APIs, Redis caching and Celery workers on AWS.
+
+SKILLS
+Python, FastAPI, Django, PostgreSQL, Redis, Docker, AWS, CI/CD, pytest
+
+EDUCATION
+B.Tech Computer Science, 2017

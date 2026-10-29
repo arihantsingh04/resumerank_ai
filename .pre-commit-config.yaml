@@ -1,0 +1,32 @@
+# Install once:  backend\.venv\Scripts\pre-commit install
+# Blocks secrets and env files from ever being committed, and keeps Python tidy.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+        files: ^backend/
+      - id: ruff-format
+        files: ^backend/
+  - repo: local
+    hooks:
+      - id: forbid-env-files
+        name: forbid committing .env files
+        entry: ".env files must not be committed (use .env.example)"
+        language: fail
+        files: '(^|/)\.env($|\.(?!example$))'
+      - id: forbid-gemini-keys
+        name: forbid Google API keys in code
+        entry: 'AIza[0-9A-Za-z_\-]{35}'
+        language: pygrep
+        exclude: ^\.pre-commit-config\.yaml$

@@ -1,0 +1,16 @@
+Kenji Watanabe
+kenji.watanabe@example.com
+
+SUMMARY
+DevOps engineer with 5 years of experience running cloud infrastructure for web platforms.
+
+EXPERIENCE
+DevOps Engineer, StreamCast — 2020 to present
+Run Kubernetes clusters on AWS, build Docker images and maintain CI/CD pipelines in GitLab. Write Python
+automation scripts and Terraform modules. Manage PostgreSQL backups and monitoring with Prometheus.
+
+SKILLS
+Docker, Kubernetes, AWS, Terraform, CI/CD, Python, PostgreSQL, Linux
+
+EDUCATION
+BEng Computer Engineering, 2019

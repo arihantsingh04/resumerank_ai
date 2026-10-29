@@ -1,0 +1,16 @@
+Tomasz Nowak
+tomasz.nowak@example.com
+
+SUMMARY
+Data scientist with 3 years of experience in machine learning and statistics.
+
+EXPERIENCE
+Data Scientist, InsureTech Labs — 2022 to present
+Trained churn prediction models in Python with scikit-learn. Ran A/B test analyses and built feature
+pipelines with pandas and SQL on BigQuery. Shared results in Jupyter notebooks and Tableau.
+
+SKILLS
+Python, pandas, scikit-learn, SQL, statistics, machine learning, Tableau
+
+EDUCATION
+MSc Data Science, 2022

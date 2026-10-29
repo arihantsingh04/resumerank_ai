@@ -1,0 +1,562 @@
+@import "tailwindcss";
+
+/*
+  ResumeRank v3 tokens (DESIGN_DECISIONS D-33), following the user's reference shots:
+  white canvas, soft grey tiles with a dot texture, near-black ink, medium-weight geometric type,
+  black pill buttons, small solid-colour icon squares, and tilted glossy "stickers" as the one bold move.
+*/
+@theme {
+  --color-canvas: #ffffff;
+  --color-tile: #f4f4f5;
+  --color-tile-2: #ececee;
+  --color-ink: #121212;
+  --color-ink-2: #3f3f46;
+  --color-mute: #6e6e73;
+  --color-line: #e9e9ec;
+  --color-line-2: #dcdce1;
+  --color-orange: #ff4a24;
+  --color-blue: #1a9bff;
+  --color-pink: #ff4f9a;
+  --color-green: #2fb350;
+  --color-yellow: #ffc531;
+  --color-purple: #b026e8;
+  --color-highlight: #ffe36e;
+  --color-good: #16833a;
+  --color-good-wash: #e6f6ea;
+  --color-bad: #d93a1f;
+  --color-bad-wash: #fdece8;
+  --color-warn: #9a5b00;
+  --color-warn-wash: #fff4dc;
+
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Plus Jakarta Sans Variable", ui-sans-serif, sans-serif;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-rise: rise 560ms var(--ease-out) both;
+  --animate-pop: pop 420ms var(--ease-spring) both;
+  --animate-pulse-ring: pulse-ring 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  --animate-wobble: wobble 7s ease-in-out infinite;
+  --animate-line-up: line-up 1100ms var(--ease-apple) both;
+  --animate-fade-in: fade-in 1000ms var(--ease-apple) both;
+  --animate-scan: scan 1.6s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pop {
+    0% { opacity: 0; transform: scale(0.5) rotate(var(--r, 0deg)); }
+    100% { opacity: 1; transform: scale(1) rotate(var(--r, 0deg)); }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.55); opacity: 0.55; }
+    100% { transform: scale(1.25); opacity: 0; }
+  }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(var(--r, -12deg)) translateY(0); }
+    50% { transform: rotate(calc(var(--r, -12deg) + 1deg)) translateY(-4px); }
+  }
+  @keyframes line-up {
+    from { transform: translateY(105%); }
+    to { transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; filter: blur(6px); }
+    to { opacity: 1; filter: none; }
+  }
+  @keyframes scan {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(116px); opacity: 1; }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2.5px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  h1, h2, h3 {
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  button, a, label[for], [role="button"] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  /* Soft grey panel with a faint dot texture, as in the reference bento tiles. */
+  .tile {
+    background-color: var(--color-tile);
+    background-image: radial-gradient(rgb(18 18 18 / 0.045) 1px, transparent 1px);
+    background-size: 14px 14px;
+    border: 1px solid var(--color-line);
+    border-radius: 24px;
+  }
+  .tile,
+  .panel {
+    min-width: 0;
+  }
+  .panel {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 18px;
+    box-shadow: 0 1px 2px rgb(18 18 18 / 0.04), 0 10px 30px -18px rgb(18 18 18 / 0.18);
+  }
+
+  /* Primary action: black pill with an inner highlight (reference "Get a demo"). */
+  .btn-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.65rem 1.35rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+    background: linear-gradient(180deg, #2b2b2e 0%, #121212 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 6px 16px -6px rgb(18 18 18 / 0.5);
+    transition: transform 350ms var(--ease-apple), box-shadow 350ms var(--ease-apple), opacity 200ms;
+  }
+  .btn-dark:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 10px 22px -8px rgb(18 18 18 / 0.55);
+  }
+  .btn-dark:active:not(:disabled) {
+    transform: scale(0.97);
+    transition-duration: 120ms;
+  }
+  .btn-dark:disabled {
+    opacity: 0.35;
+    box-shadow: none;
+  }
+  .btn-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    padding: 0.6rem 1.15rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    background: #fff;
+    border: 1px solid var(--color-line-2);
+    transition: border-color 150ms, background-color 150ms;
+  }
+  .btn-light:hover {
+    border-color: var(--color-mute);
+  }
+
+  /* Small grey label pill with a sparkle icon ("Discover us", "Accuracy"). */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.32rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--color-tile);
+    border: 1px solid var(--color-line);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-ink-2);
+  }
+
+  /* Headline lines rise from behind a mask (driven by GSAP in Landing). */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.22em;
+    margin-bottom: -0.22em;
+  }
+  .line-mask > span {
+    display: block;
+  }
+  /* Arrow inside a button nudges forward on hover. */
+  .nudge svg:last-child {
+    transition: transform 300ms var(--ease-apple);
+  }
+  .nudge:hover svg:last-child {
+    transform: translateX(3px);
+  }
+  /* Nav link underline slides in from the left. */
+  .nav-link {
+    position: relative;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1.5px;
+    border-radius: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 400ms var(--ease-apple);
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+  /* Soft lift for interactive cards. */
+  .lift {
+    transition: transform 450ms var(--ease-apple), box-shadow 450ms var(--ease-apple);
+  }
+  .lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -24px rgb(18 18 18 / 0.35);
+  }
+  .tilt-icon {
+    transition: transform 500ms var(--ease-spring);
+  }
+  .group:hover .tilt-icon {
+    transform: rotate(-8deg) scale(1.08);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 9999px;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Solid-colour rounded icon square (reference feature icons). */
+  .icon-sq {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -2px 0 rgb(0 0 0 / 0.08);
+  }
+
+  /* Percentage chip: green good / red bad. */
+  .pct {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.05rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* Tilted glossy 3D sticker: the one bold move. */
+  .sticker {
+    --r: -12deg;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.35em 0.75em 0.45em;
+    border-radius: 0.38em;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    transform: rotate(var(--r));
+    background: linear-gradient(180deg, #ff6b45 0%, #ff4a24 55%, #f03c16 100%);
+    box-shadow:
+      inset 0 2px 0 rgb(255 255 255 / 0.35),
+      inset 0 -6px 12px rgb(170 30 0 / 0.35),
+      0 22px 40px -16px rgb(255 74 36 / 0.75);
+  }
+  .sticker-blue {
+    background: linear-gradient(180deg, #4fb7ff 0%, #1a9bff 60%, #0b85e6 100%);
+    box-shadow:
+      inset 0 2px 0 rgb(255 255 255 / 0.4),
+      inset 0 -5px 10px rgb(0 70 150 / 0.3),
+      0 16px 30px -14px rgb(26 155 255 / 0.8);
+  }
+
+  /* Glossy circle that sits inside headline type (the "oo" in the reference). */
+  .orb {
+    display: inline-grid;
+    place-items: center;
+    width: 0.86em;
+    height: 0.86em;
+    border-radius: 9999px;
+    vertical-align: -0.06em;
+    color: #fff;
+    box-shadow: inset 0 0.04em 0.06em rgb(255 255 255 / 0.55), inset 0 -0.06em 0.12em rgb(0 0 0 / 0.18),
+      0 0.12em 0.25em -0.08em rgb(0 0 0 / 0.35);
+  }
+
+  .field {
+    width: 100%;
+    border: 1px solid var(--color-line-2);
+    background: #fff;
+    border-radius: 14px;
+    padding: 0.7rem 0.95rem;
+    font-size: 1rem;
+    transition: border-color 150ms, box-shadow 150ms;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 4px rgb(18 18 18 / 0.06);
+  }
+
+  /* Hand-drawn highlighter behind resume evidence. */
+  .highlight {
+    background-image: linear-gradient(
+      100deg,
+      transparent 0.3em,
+      color-mix(in srgb, var(--color-highlight) 85%, transparent) 0.5em,
+      color-mix(in srgb, var(--color-highlight) 70%, transparent) 94%,
+      transparent 99%
+    );
+    background-size: 100% 0.85em;
+    background-repeat: no-repeat;
+    background-position: 0 78%;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0 0.12em;
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, #ededf0 25%, #f7f7f8 50%, #ededf0 75%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+    border-radius: 10px;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-2) transparent;
+  }
+}
+
+
+/* ── SaaS motion layer (D-43) ──────────────────────────────────────────
+   Rules borrowed from the Remotion SaaS-animation playbook:
+   - glows are multi-stop radial gradients, never filter: blur on animated shapes (blur warps);
+   - motion that starts from rest uses an in-out curve (out-curves jolt after a hold);
+   - only transform / opacity / custom properties are animated. */
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --mx {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -999px;
+}
+@property --my {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -999px;
+}
+
+@layer components {
+  /* Gradient ring that orbits the primary CTA while it's ready to press. */
+  .glow-ring {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    border-radius: 9999px;
+    padding: 2px;
+    background: var(--color-line-2);
+    transition: background-color 400ms var(--ease-inout);
+  }
+  .glow-ring[data-active="true"] {
+    background: conic-gradient(from var(--angle), #ff4a24, #ffc531, #2fb350, #1a9bff, #b026e8, #ff4a24);
+    animation: orbit 3.6s linear infinite;
+  }
+  .glow-ring > .halo {
+    position: absolute;
+    inset: -18px -26px;
+    z-index: -1;
+    border-radius: 9999px;
+    background: radial-gradient(
+      closest-side,
+      rgb(255 74 36 / 0.32),
+      rgb(255 122 82 / 0.18) 45%,
+      rgb(26 155 255 / 0.08) 70%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 600ms var(--ease-inout);
+  }
+  .glow-ring[data-active="true"] > .halo {
+    opacity: 0.55;
+    animation: breathe 2.8s var(--ease-inout) infinite;
+  }
+  .glow-ring[data-active="true"]:hover > .halo {
+    opacity: 1;
+  }
+
+  /* Rolling label: on hover the text slides up and an identical copy rolls in from below. */
+  .roll {
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    line-height: 1.25;
+  }
+  .roll > span {
+    display: block;
+    transition: transform 520ms var(--ease-inout);
+  }
+  .roll > span + span {
+    position: absolute;
+    inset: 0;
+    transform: translateY(105%);
+  }
+  .group:hover .roll > span:first-child,
+  .group:focus-visible .roll > span:first-child {
+    transform: translateY(-105%);
+  }
+  .group:hover .roll > span + span,
+  .group:focus-visible .roll > span + span {
+    transform: translateY(0);
+  }
+
+  /* Loading shimmer sweeping across a button. */
+  .shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.22) 50%, transparent 70%);
+    background-size: 220% 100%;
+    animation: sweep 1.3s var(--ease-inout) infinite;
+    pointer-events: none;
+  }
+
+  /* Cursor-following spotlight on cards (position fed by --mx / --my from JS). */
+  .spotlight {
+    position: relative;
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      260px circle at var(--mx) var(--my),
+      rgb(255 74 36 / 0.09),
+      rgb(26 155 255 / 0.05) 40%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 500ms var(--ease-inout);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+  .spotlight > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Light sweep across icon squares on hover. */
+  .icon-sq {
+    position: relative;
+    overflow: hidden;
+  }
+  .icon-sq::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: linear-gradient(115deg, transparent 40%, rgb(255 255 255 / 0.55) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 900ms var(--ease-inout);
+    pointer-events: none;
+  }
+  .group:hover .icon-sq::after {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes orbit {
+  to {
+    --angle: 360deg;
+  }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(0.96); }
+  50% { transform: scale(1.06); }
+}
+@keyframes sweep {
+  from { background-position: 160% 0; }
+  to { background-position: -60% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .glow-ring[data-active="true"],
+  .glow-ring[data-active="true"] > .halo,
+  .shimmer::after {
+    animation: none !important;
+  }
+}
+
+@media print {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .tile {
+    background-image: none;
+  }
+  .panel, .tile {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}

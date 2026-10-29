@@ -1,0 +1,16 @@
+# Vercel installs this file for the Python API function (api/index.py).
+# Vercel cannot follow "-r" includes, so this mirrors backend/requirements.txt exactly
+# (backend/tests/test_deploy.py fails if the two drift apart).
+fastapi>=0.115
+uvicorn[standard]>=0.32
+pydantic>=2.9
+pydantic-settings>=2.6
+python-multipart>=0.0.18
+pypdf>=5.1
+python-docx>=1.1
+numpy>=2.1
+faiss-cpu>=1.10
+google-genai>=1.0
+onnxruntime>=1.20
+tokenizers>=0.20
+huggingface-hub>=0.26

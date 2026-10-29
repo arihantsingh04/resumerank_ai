@@ -1,0 +1,59 @@
+"""Application error types. Each maps to a JSON envelope: {"error": {"code", "message"}}."""
+
+from __future__ import annotations
+
+
+class AppError(Exception):
+    status_code = 400
+    code = "bad_request"
+
+    def __init__(self, message: str, *, code: str | None = None, status_code: int | None = None) -> None:
+        super().__init__(message)
+        self.message = message
+        if code:
+            self.code = code
+        if status_code:
+            self.status_code = status_code
+
+
+class ValidationFailed(AppError):
+    status_code = 422
+    code = "validation_error"
+
+
+class AuthError(AppError):
+    status_code = 401
+    code = "not_authenticated"
+
+
+class Forbidden(AppError):
+    status_code = 403
+    code = "forbidden"
+
+
+class NotFound(AppError):
+    status_code = 404
+    code = "not_found"
+
+    def __init__(self, message: str = "Not found.", **kw) -> None:
+        super().__init__(message, **kw)
+
+
+class Conflict(AppError):
+    status_code = 409
+    code = "conflict"
+
+
+class QuotaExceeded(AppError):
+    status_code = 429
+    code = "quota_exceeded"
+
+
+class RateLimited(AppError):
+    status_code = 429
+    code = "rate_limited"
+
+
+class ServiceUnavailable(AppError):
+    status_code = 503
+    code = "service_unavailable"

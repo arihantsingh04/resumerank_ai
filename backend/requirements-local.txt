@@ -1,0 +1,5 @@
+# Laptop extras: the PyTorch Sentence-Transformers backend (the brief's reference stack).
+# Install CPU-only PyTorch FIRST (keeps disk usage ~200 MB instead of ~2.5 GB):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+-r requirements.txt
+sentence-transformers>=3.3

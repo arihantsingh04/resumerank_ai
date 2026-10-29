@@ -1,0 +1,19 @@
+Daniel Okafor
+daniel.okafor@example.com | (555) 201-3344
+
+SUMMARY
+Junior developer with 1.5 years of experience writing Python web applications.
+
+EXPERIENCE
+Junior Software Developer, CityBank Digital — 2024 to present
+Maintained Django views and wrote SQL reports. Added unit tests with pytest. Fixed bugs in a
+MySQL-backed internal tool.
+
+PROJECTS
+Built a personal budgeting API with Flask and SQLite.
+
+SKILLS
+Python, Django, Flask, SQL, Git, HTML
+
+EDUCATION
+BSc Information Technology, 2023

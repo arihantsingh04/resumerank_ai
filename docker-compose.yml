@@ -1,0 +1,23 @@
+# Optional containerised deployment (D-20). Not required for local development.
+#   cp .env.example .env   # then set GEMINI_API_KEY (optional)
+#   docker compose up --build
+# Open http://localhost:8080. In real hosting, put this behind HTTPS.
+services:
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      ENV: production
+      DATA_DIR: /app/data
+      CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - ./data/models:/app/data/models   # model cache only; no user data is stored
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

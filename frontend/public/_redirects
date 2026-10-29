@@ -1,0 +1,9 @@
+# Netlify routing (copied into dist/ on build).
+#
+# 1) API: forward /api/* to the FastAPI backend (Netlify drag-and-drop can't run Python).
+#    Replace the URL with your backend's address, then rebuild and re-drop dist/.
+#    Example for a Hugging Face Space:  https://<user>-<space>.hf.space/api/:splat
+# /api/*  https://YOUR-BACKEND-URL/api/:splat  200
+
+# 2) Single-page app: every other path serves index.html so /check works on refresh.
+/*  /index.html  200

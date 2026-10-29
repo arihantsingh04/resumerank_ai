@@ -1,0 +1,88 @@
+# ───────────── Secrets & credentials (NEVER commit) ─────────────
+# Real config lives in .env; only the blank template .env.example is committed.
+.env
+.env.*
+*.env
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.secret
+id_rsa*
+id_ed25519*
+secrets/
+credentials*.json
+service-account*.json
+.npmrc
+.pypirc
+.netrc
+
+# ───────────── Runtime data (resumes are personal data) ─────────────
+/data/
+!/data/.gitkeep
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.faiss
+uploads/
+
+# ───────────── ML model caches ─────────────
+.cache/
+hf_cache/
+*.safetensors
+*.bin
+*.onnx
+
+# ───────────── Python ─────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+build/
+
+# ───────────── Node / Frontend ─────────────
+node_modules/
+.npm-cache/
+dist/
+*.tsbuildinfo
+.vite/
+npm-debug.log*
+
+# ───────────── Deploy / hosting local state ─────────────
+.vercel/
+.netlify/
+.tools/
+
+# ───────────── AI assistants & agent workspaces ─────────────
+.claude/
+CLAUDE.local.md
+.superpowers/
+docs/superpowers/
+.cursor/
+.windsurf/
+.codex/
+.gemini/
+.aider*
+.continue/
+.copilot/
+
+# ───────────── OS / IDE ─────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
